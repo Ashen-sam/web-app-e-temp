@@ -1,11 +1,10 @@
-import { Stack } from '@mui/material';
+import { Collapse, Fade, Grow, Paper, Stack } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
-import React, { Fragment, ReactNode, useState } from 'react';
-import CatergoryToolbar from '../CatergoryToolbar/CatergoryToolbar';
+import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { Heart, Search, ShoppingCart, User } from 'lucide-react';
 import SideBar from '../Drawer/Drawer';
-import PopOver from '../PopOver/Popover';
+import UserBox from '../UserBox/UserBox';
 
 
 interface IHeader {
@@ -20,29 +19,31 @@ const HeaderBar: React.FC<IHeader> = ({
 }) => {
 
     const [isOpenCart, setIsOpenCart] = useState(false)
-    const [open, setOpen] = useState(false)
-    const [, setAnchorEl] = useState<null | SVGSVGElement>(null);
-
-
+    const [isPopOverOpen, setIsPopOverOpen] = useState(false)
+    const popoverRef = useRef<HTMLDivElement | null>(null);
     const handleCartOpen = () => {
         setIsOpenCart(true)
     }
 
     const handleCloseCart = () => {
         setIsOpenCart(false)
-
     }
 
+    const handleOpenPopOver = () => {
+        setIsPopOverOpen(true)
+    }
 
-    const handleOpen = (event: React.MouseEvent<SVGSVGElement>) => {
-        setAnchorEl(event.currentTarget);
-        setOpen(true);
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+            setIsPopOverOpen(false);
+        }
     };
-
-    const handleClose = () => {
-        setOpen(false);
-        setAnchorEl(null);
-    };
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
     return (
 
         <Fragment>
@@ -50,9 +51,9 @@ const HeaderBar: React.FC<IHeader> = ({
                 backgroundColor: '#F0F8FF',
             }}>
                 <Container maxWidth="lg">
-                    <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                    <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} p={1}>
                         <Stack>
-                            <CatergoryToolbar />
+                            asd
                         </Stack>
                         <Stack color={'red'}>
                             {logoImg} Image
@@ -68,7 +69,29 @@ const HeaderBar: React.FC<IHeader> = ({
                             <Search color='#002244' size={20} />
                             <Heart color='#002244' size={20} />
                             <ShoppingCart color='#002244' size={20} onClick={handleCartOpen} />
-                            <User color='#002244' size={20} onMouseOver={handleOpen} />
+                            <User color='#002244' size={20}
+                                onClick={handleOpenPopOver}
+                            />
+
+                            <Fade in={isPopOverOpen}>
+                                <Paper
+                                    elevation={5}
+                                    ref={popoverRef}
+                                    sx={{
+                                        backgroundColor: 'white',
+                                        position: 'absolute',
+                                        top: 40,
+                                        right: -20,
+                                        borderRadius: '3px',
+                                        minHeight: 200,
+                                        minWidth: 300
+                                    }}
+                                >
+                                    <UserBox />
+                                </Paper>
+                            </Fade>
+
+
                         </Stack>
 
 
@@ -94,13 +117,8 @@ const HeaderBar: React.FC<IHeader> = ({
                 noProducts='No products in the cart.'
                 title='Shopping Cart'
                 close={handleCloseCart}
-                isOpen={
-                    isOpenCart} />
+                isOpen={isOpenCart} />
 
-
-            <PopOver
-                isOpen={open}
-                close={handleClose} />
         </Fragment>
     );
 }
