@@ -3,7 +3,7 @@ import { Heart, Search, ShoppingCart } from 'lucide-react'
 
 const ProductItemButtons = () => {
     return (
-        <Stack direction={'column'} gap={0.4}>
+        <Stack direction={'column'} gap={0.7}>
             <ShoppingCart />
             <Heart />
             <Search />
