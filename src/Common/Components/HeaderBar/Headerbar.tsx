@@ -2,12 +2,9 @@ import { Stack } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import React, { Fragment, ReactNode, useState } from "react";
-import CatergoryToolbar from "../CatergoryToolbar/CatergoryToolbar";
 import { Heart, Search, ShoppingCart, User } from "lucide-react";
 import SideBar from "../Drawer/Drawer";
-import PopOver from "../PopOver/Popover";
 import SearchBarDrawer from "../Drawer/SearchBarDrawer";
-// import { Link, useNavigate } from "react-router-dom";
 import { MAIN_ROUTES } from "../../Constants/Routes/MainRoutes";
 import { Link } from "react-router-dom";
 
@@ -19,8 +16,6 @@ interface IHeader {
 
 const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
   const [isOpenCart, setIsOpenCart] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [, setAnchorEl] = useState<null | SVGSVGElement>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleCartOpen = () => {
@@ -31,16 +26,6 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
     setIsOpenCart(false);
   };
 
-  const handleOpen = (event: React.MouseEvent<SVGSVGElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setAnchorEl(null);
-  };
-
   const searchOpen = () => {
     setIsSearchOpen(true);
   };
@@ -48,12 +33,6 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
   const searchClose = () => {
     setIsSearchOpen(false);
   };
-
-  // const navigate = useNavigate();
-
-  // const navigateWishlist = () => {
-  //   navigate("/wishlist");
-  // };
 
   return (
     <Fragment>
@@ -70,9 +49,7 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
             justifyContent={"space-between"}
             alignItems={"center"}
           >
-            <Stack>
-              <CatergoryToolbar />
-            </Stack>
+            <Stack>asdl </Stack>
             <Stack color={"red"}>{logoImg} Image</Stack>
 
             <Stack
@@ -105,7 +82,7 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
                 size={20}
                 onClick={handleCartOpen}
               />
-              <User color="#002244" size={20} onMouseOver={handleOpen} />
+              <User color="#002244" size={20} />
             </Stack>
 
             <Stack
@@ -148,8 +125,6 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
         close={handleCloseCart}
         isOpen={isOpenCart}
       />
-
-      <PopOver isOpen={open} close={handleClose} />
 
       <SearchBarDrawer open={isSearchOpen} close={searchClose} />
     </Fragment>
