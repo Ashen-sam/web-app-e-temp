@@ -1,13 +1,15 @@
-import { Box } from '@mui/material'
-import React from 'react'
-import HeaderBar from '../HeaderBar/Headerbar'
+import { Box } from "@mui/material";
+import React from "react";
+import HeaderBar from "../HeaderBar/Headerbar";
+import { Outlet } from "react-router-dom";
 
 const MainContainer: React.FC = () => {
-    return (
-        <Box>
-            <HeaderBar />
-        </Box>
-    )
-}
+  return (
+    <Box>
+      <HeaderBar />
+      <Outlet />
+    </Box>
+  );
+};
 
-export default MainContainer
+export default MainContainer;
