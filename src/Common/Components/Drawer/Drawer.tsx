@@ -1,4 +1,4 @@
-import { Button, Divider, Drawer, Stack, Typography } from "@mui/material";
+import { Button, Divider, Drawer, Stack, Typography, useTheme } from "@mui/material";
 import { CircleX } from "lucide-react";
 import React, { ReactNode } from "react";
 import image from "/Images/abandoned-cart.png";
@@ -11,6 +11,8 @@ interface ISideBar {
   noProducts?: string;
 }
 const SideBar: React.FC<ISideBar> = ({ isOpen, close, title, noProducts }) => {
+
+  const theme = useTheme()
   return (
     <Drawer anchor="right" variant="temporary" open={isOpen}>
       <Stack
@@ -24,7 +26,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, close, title, noProducts }) => {
         <Stack
           p={2}
           sx={{
-            backgroundColor: "#034694",
+            backgroundColor: theme.palette.primary.main,
           }}
         >
           <Typography color="whitesmoke" fontSize={"1.3rem"}>
@@ -51,10 +53,10 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, close, title, noProducts }) => {
             </Typography>
             <Button
               variant="contained"
-              // disableElevation
-              // sx={{
-              //   backgroundColor: "#034694",
-              // }}
+            // disableElevation
+            // sx={{
+            //   backgroundColor: "#034694",
+            // }}
             >
               Return to shop
             </Button>
