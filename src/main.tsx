@@ -2,10 +2,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./App.css";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./Theme/Theme";
+import { themeGenerator } from "./Theme/ThemeGenerator";
 
 createRoot(document.getElementById("root")!).render(
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={themeGenerator}>
     <App />
   </ThemeProvider>
 );

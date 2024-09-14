@@ -52,9 +52,9 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, close, title, noProducts }) => {
             <Button
               variant="contained"
               // disableElevation
-              sx={{
-                backgroundColor: "#034694",
-              }}
+              // sx={{
+              //   backgroundColor: "#034694",
+              // }}
             >
               Return to shop
             </Button>
