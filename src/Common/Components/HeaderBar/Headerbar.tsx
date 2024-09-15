@@ -6,7 +6,7 @@ import { Heart, Search, ShoppingCart, User } from "lucide-react";
 import SideBar from "../Drawer/Drawer";
 import SearchBarDrawer from "../Drawer/SearchBarDrawer";
 import { MAIN_ROUTES } from "../../Constants/Routes/MainRoutes";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MobileTab from "./MobileTab";
 
 interface IHeader {
@@ -14,17 +14,16 @@ interface IHeader {
   logoName?: string;
   logoImg?: ReactNode;
   links?: string[];
-  Icon?: ReactNode
-  link?: any,
-  click?: () => void
+  Icon?: ReactNode;
+  link?: any;
+  click?: () => void;
 }
 
 const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
-
-  const theme = useTheme()
+  const theme = useTheme();
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleCartOpen = () => {
     setIsOpenCart(true);
@@ -43,14 +42,14 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
   };
 
   const handleWhishlist = () => {
-    navigate(MAIN_ROUTES.WISHLIST)
-  }
+    navigate(MAIN_ROUTES.WISHLIST);
+  };
 
   const linkOptions: IHeader[] = [
     {
       id: 1,
       Icon: <Search />,
-      click: handleSearchOpen
+      click: handleSearchOpen,
     },
     {
       id: 2,
@@ -60,12 +59,13 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
     {
       id: 3,
       Icon: <ShoppingCart />,
-      click: handleCartOpen
-    }, {
+      click: handleCartOpen,
+    },
+    {
       id: 4,
-      Icon: <User />
-    }
-  ]
+      Icon: <User />,
+    },
+  ];
 
   return (
     <Fragment>
@@ -73,9 +73,8 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
         position="fixed"
         elevation={1}
         sx={{
-          backgroundColor: theme.palette.primary.main
-          , p: 1
-
+          backgroundColor: theme.palette.primary.main,
+          p: 1,
         }}
       >
         <Container maxWidth="lg">
@@ -100,33 +99,31 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
               direction={"row"}
               gap={3}
             >
-              {linkOptions.map(option => {
-                { console.log(option.link) }
+              {linkOptions.map((option) => {
+                {
+                  console.log(option.link);
+                }
                 return (
                   <>
-                    <Stack
-                      key={option.id}
-                      onClick={option.click}>
+                    <Stack key={option.id} onClick={option.click}>
                       {option.Icon}
                     </Stack>
                   </>
-                )
+                );
               })}
             </Stack>
             <MobileTab>
-              {linkOptions.map(option => {
-                { console.log(option.link) }
+              {linkOptions.map((option) => {
+                {
+                  console.log(option.link);
+                }
                 return (
                   <>
-                    <Stack
-                      key={option.id}
-                      onClick={option.click}>
-                      <Typography >
-                        {option.Icon}
-                      </Typography>
+                    <Stack key={option.id} onClick={option.click}>
+                      <Typography>{option.Icon}</Typography>
                     </Stack>
                   </>
-                )
+                );
               })}
             </MobileTab>
           </Stack>
@@ -141,7 +138,7 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
       />
 
       <SearchBarDrawer open={isSearchOpen} close={searchClose} />
-    </Fragment >
+    </Fragment>
   );
 };
 export default HeaderBar;

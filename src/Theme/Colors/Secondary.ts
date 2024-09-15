@@ -1,8 +1,8 @@
 import { PaletteColorOptions } from "@mui/material";
 
 export const Secondary: PaletteColorOptions = {
-  main: "#9c27b0",
-  light: "#ba68c8",
-  dark: "#7b1fa2",
-  contrastText: "#fff",
+  main: "#f7f7f7",
+  light: "#fff",
+  dark: "#8d8d8d",
+  contrastText: "#000",
 };

@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import image from "/Images/lovee.png";
+import image from "/Images/empty-wishlist.png";
 
 const Wishlist: React.FC = () => {
   return (
