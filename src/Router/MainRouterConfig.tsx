@@ -2,7 +2,6 @@ import { RouteObject } from "react-router-dom";
 import { MAIN_ROUTES } from "../Common/Constants/Routes";
 import MainContainer from "../Common/Components/MainContainer/MainContainer";
 import Wishlist from "../Common/Components/Wishlist/Wishlist";
-import ProductItem from "../Common/Components/ProductItem/ProductItem";
 import HomePage from "../Containers/HomePage/HomePage";
 
 export const MAIN_ROUTER_CONFIG: RouteObject[] = [

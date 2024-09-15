@@ -5,7 +5,7 @@ import HeaderBar from "../HeaderBar/Headerbar";
 
 const MainContainer: React.FC = () => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <CssBaseline />
       <HeaderBar />
       <Box component="main" sx={{ flexGrow: 1, mt: 6 }}>
