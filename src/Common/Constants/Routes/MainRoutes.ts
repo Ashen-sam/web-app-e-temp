@@ -1,5 +1,5 @@
 export enum MAIN_ROUTES {
   ROOT = "/",
-  HOME = "/h",
+  HOME = "/",
   WISHLIST = "/wishlist",
 }
