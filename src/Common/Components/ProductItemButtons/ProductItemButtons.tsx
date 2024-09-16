@@ -8,7 +8,7 @@ const ProductItemButtons: React.FC<IProductItemButtons> = ({
   clickAddCart,
 }) => {
   return (
-    <Stack direction={"column"} gap={0.7}>
+    <Stack direction={"column"} gap={1}>
       <ShoppingCart onClick={clickAddCart} />
       <Heart />
       <Search />

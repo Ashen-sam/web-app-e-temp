@@ -8,9 +8,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { CircleX, XIcon } from "lucide-react";
-import React, { ReactNode } from "react";
+import React, { useState, ReactNode } from "react";
 import image from "/Images/empty-cart.png";
 import { Plus, Minus } from "lucide-react";
+import CustomTooltip from "../Tooltip/customTooltip";
+import TextWithTooltip from "../Tooltip/customTooltip";
 
 interface ISideBar {
   close?: () => void;
@@ -19,6 +21,7 @@ interface ISideBar {
   children?: ReactNode;
   noProducts?: string;
   isAddtoCart?: boolean;
+  counter?: number;
   data?: {
     title: string;
     sub: string;
@@ -32,8 +35,20 @@ const SideBar: React.FC<ISideBar> = ({
   title,
   noProducts,
   data,
+  counter,
 }) => {
   const theme = useTheme();
+
+  const [count, setCount] = useState(1);
+
+  const handleIncrement = () => {
+    setCount((prev) => prev + 1);
+  };
+
+  const handleDecrement = () => {
+    setCount((prev) => prev - 1);
+  };
+
   return (
     <Drawer anchor="right" variant="temporary" open={isOpen}>
       <Stack
@@ -72,6 +87,7 @@ const SideBar: React.FC<ISideBar> = ({
                 position={"relative"}
                 p={2}
                 pl={2}
+                borderBottom={"1px solid lightgray"}
                 sx={{
                   "&:hover": {
                     backgroundColor: theme.palette.secondary.main,
@@ -80,11 +96,17 @@ const SideBar: React.FC<ISideBar> = ({
               >
                 <img src={data.image} height={70} />
                 <Stack direction={"column"}>
-                  <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
+                  {/* <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
                     {data.title}
-                  </Typography>
+                  </Typography> */}
+                  <TextWithTooltip
+                    title={data.title}
+                    lgMaxWidth={200}
+                    smMaxWidth={100}
+                  />
                   <Stack direction={"row"} alignItems={"center"} gap={1} py={1}>
                     <Button
+                      onClick={handleIncrement}
                       variant="outlined"
                       sx={{
                         backgroundColor: theme.palette.secondary.light,
@@ -102,9 +124,10 @@ const SideBar: React.FC<ISideBar> = ({
                         border: `lpx solid ${theme.palette.secondary.dark}`,
                       }}
                     >
-                      1
+                      {counter}
                     </Box>
                     <Button
+                      onClick={handleDecrement}
                       variant="outlined"
                       sx={{
                         backgroundColor: theme.palette.secondary.light,
@@ -115,10 +138,16 @@ const SideBar: React.FC<ISideBar> = ({
                       <Minus size={14} />
                     </Button>
                   </Stack>
-                  <Typography
-                    fontSize={"0.9rem"}
-                    color={theme.palette.primary.main}
-                  >{`Rs.${data.price}`}</Typography>
+                  <Stack direction={"row"} gap={1}>
+                    <Typography
+                      fontSize={"0.9rem"}
+                      color={theme.palette.secondary.dark}
+                    >{`${count} × `}</Typography>
+                    <Typography
+                      fontSize={"0.9rem"}
+                      color={theme.palette.primary.main}
+                    >{`Rs.${(data.price * count).toFixed(2)}`}</Typography>
+                  </Stack>
                   {/* <Typography>{data.sub}</Typography> */}
                 </Stack>
 
@@ -138,10 +167,7 @@ const SideBar: React.FC<ISideBar> = ({
                   // onClick={close}
                 />
               </Stack>
-              <Divider sx={{ width: "100%" }} />
-
-              <Divider sx={{ width: "100%" }} />
-              <Stack width={"100%"} p={1}>
+              <Stack width={"100%"} p={1} borderTop={"1px solid lightgray"}>
                 <Stack
                   direction={"row"}
                   py={1}

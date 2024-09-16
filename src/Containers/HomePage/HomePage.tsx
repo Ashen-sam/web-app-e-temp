@@ -1,11 +1,13 @@
-import { Stack } from "@mui/material";
-import React, { useState } from "react";
+import { Container, Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import ProductItem from "../../Common/Components/ProductItem/ProductItem";
 import Footer from "../../Common/Components/Footer/Footer";
 import logo from "/Images/sample-logo.jpg";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import SideBar from "../../Common/Components/Drawer/Drawer";
 import { Messages } from "../../Common/Constants/Messages";
+import { useGetAllItems } from "../../Hooks/useGetAllItems";
+import ProductsSkeleton from "../../Common/Components/Skeletons/ProductsSkeleton";
 
 const HomePage: React.FC = () => {
   const [takeData, setTakeData] = useState({
@@ -17,87 +19,35 @@ const HomePage: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem("takeData");
+    if (storedData) {
+      setTakeData(JSON.parse(storedData));
+    }
+  }, []);
+
   const takeDataCart = (
     title: string,
     price: number,
     sub: string,
     image: string
   ) => {
-    setTakeData({
+    const newData = {
       title: title,
       sub: sub,
       price: price,
       image: image,
-    });
+    };
+    setTakeData(newData);
+    // localStorage.setItem("takeData", JSON.stringify(newData));
+
     setIsOpen(true);
   };
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  const fakeProducts = [
-    {
-      productMainTitle: "iPhone 16 Pro Max",
-      productSubTitle: "Apple, Smartphone",
-      productPrice: 354900,
-      isOptions: true,
-      productImage: "/Images/phone-Image.webp",
-    },
-    // {
-    //   productMainTitle: "Samsung Galaxy S23 Ultra",
-    //   productSubTitle: "Samsung, Smartphone",
-    //   productPrice: 299900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Google Pixel 8",
-    //   productSubTitle: "Google, Smartphone",
-    //   productPrice: 199900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "OnePlus 12 Pro",
-    //   productSubTitle: "OnePlus, Smartphone",
-    //   productPrice: 179900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Sony Xperia 5 IV",
-    //   productSubTitle: "Sony, Smartphone",
-    //   productPrice: 224900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Huawei Mate 50",
-    //   productSubTitle: "Huawei, Smartphone",
-    //   productPrice: 199000,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Xiaomi Mi 13",
-    //   productSubTitle: "Xiaomi, Smartphone",
-    //   productPrice: 159900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Oppo Find X6",
-    //   productSubTitle: "Oppo, Smartphone",
-    //   productPrice: 189900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Vivo X90 Pro",
-    //   productSubTitle: "Vivo, Smartphone",
-    //   productPrice: 209900,
-    //   isOptions: true,
-    // },
-    // {
-    //   productMainTitle: "Realme GT Neo 5",
-    //   productSubTitle: "Realme, Smartphone",
-    //   productPrice: 139900,
-    //   isOptions: true,
-    // },
-  ];
+  const { data, isLoading } = useGetAllItems();
 
   const icons: any = [
     {
@@ -162,33 +112,47 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <Stack
-        direction={"row"}
-        flexWrap={"wrap"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        gap={2}
-      >
-        {fakeProducts.map((data) => {
-          return (
-            <ProductItem
-              addToCartClick={() =>
-                takeDataCart(
-                  data.productMainTitle,
-                  data.productPrice,
-                  data.productSubTitle,
-                  data.productImage
-                )
-              }
-              productMainTitle={data.productMainTitle}
-              productSubTitle={data.productSubTitle}
-              productPrice={data.productPrice}
-              isOptions={true}
-              productImage={data.productImage}
-            />
-          );
-        })}
-      </Stack>
+      <Container maxWidth="lg">
+        <Stack
+          direction={"row"}
+          flexWrap={"wrap"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={2}
+        >
+          {isLoading ? (
+            <ProductsSkeleton />
+          ) : (
+            <>
+              {data.slice(0, 25).map((data) => {
+                return (
+                  <ProductItem
+                    addToCartClick={() =>
+                      takeDataCart(
+                        data.title,
+                        data.price,
+                        data.description,
+                        data.image
+                      )
+                    }
+                    productMainTitle={data.title}
+                    productSubTitle={data.description}
+                    productPrice={data.price}
+                    isOptions={true}
+                    productImage={data.image}
+                  />
+                );
+              })}
+            </>
+          )}
+        </Stack>
+        <SideBar
+          title="Shopping Cart"
+          isOpen={isOpen}
+          close={handleClose}
+          data={takeData}
+        />
+      </Container>
       <Footer
         address={Messages.address}
         contactNo={Messages.contactNo}
@@ -197,13 +161,6 @@ const HomePage: React.FC = () => {
         logo={logo}
         Contactdata={icons}
         links={links}
-      />
-
-      <SideBar
-        title="Shopping Cart"
-        isOpen={isOpen}
-        close={handleClose}
-        data={takeData}
       />
     </>
   );
