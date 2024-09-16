@@ -8,6 +8,8 @@ interface IProductItem {
   productSubTitle: string;
   productPrice: number;
   isOptions?: boolean;
+  productImage?: string;
+  addToCartClick?: () => void;
 }
 
 const ProductItem: React.FC<IProductItem> = ({
@@ -15,6 +17,8 @@ const ProductItem: React.FC<IProductItem> = ({
   productSubTitle,
   productPrice,
   isOptions,
+  productImage,
+  addToCartClick,
 }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -40,7 +44,8 @@ const ProductItem: React.FC<IProductItem> = ({
     >
       <ProductItemImage
         width={"100%"}
-        image={"public/Images/phone-image.webp"}
+        // image={"public/Images/phone-image.webp"}
+        image={productImage!}
       />
       <Stack direction={"column"} gap={0.6} mt={1}>
         <Typography
@@ -78,7 +83,7 @@ const ProductItem: React.FC<IProductItem> = ({
           top={10}
           right={10}
         >
-          <ProductItemButtons />
+          <ProductItemButtons clickAddCart={addToCartClick} />
         </Stack>
       ) : (
         ""

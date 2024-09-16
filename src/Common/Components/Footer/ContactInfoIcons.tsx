@@ -1,15 +1,6 @@
 import { Box, Stack, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 
-// export interface IContactInfoIcons {
-//   Contactdata?: [
-//     {
-//       id?: number;
-//       icon?: ReactNode;
-//     }
-//   ];
-// }
-
 export interface IContactInfoIcons {
   Contactdata?: {
     id?: number;

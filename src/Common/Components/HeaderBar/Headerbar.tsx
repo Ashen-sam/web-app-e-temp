@@ -131,6 +131,7 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
       </AppBar>
 
       <SideBar
+        isAddtoCart={true}
         noProducts="No products in the cart."
         title="Shopping Cart"
         close={handleCloseCart}

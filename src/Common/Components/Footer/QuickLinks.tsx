@@ -1,18 +1,5 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 
-// export interface IQuickLinks {
-//   links?: [
-//     {
-//       id?: number;
-//       title?: string;
-//       link?: [
-//         {
-//           linkName?: string;
-//         }
-//       ];
-//     }
-//   ];
-// }
 export interface IQuickLinks {
   links?: {
     id?: number;

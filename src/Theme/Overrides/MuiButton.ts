@@ -5,6 +5,7 @@ export const MuiButton: Components<Theme>["MuiButton"] = {
     disableRipple: true,
     size: "small",
     variant: "contained",
+    disableElevation: true,
   },
   styleOverrides: {
     root: ({ theme }) => ({

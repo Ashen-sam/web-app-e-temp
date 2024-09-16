@@ -1,14 +1,19 @@
-import { Stack } from '@mui/material'
-import { Heart, Search, ShoppingCart } from 'lucide-react'
+import { Stack } from "@mui/material";
+import { Heart, Search, ShoppingCart } from "lucide-react";
 
-const ProductItemButtons = () => {
-    return (
-        <Stack direction={'column'} gap={0.7}>
-            <ShoppingCart />
-            <Heart />
-            <Search />
-        </Stack>
-    )
+interface IProductItemButtons {
+  clickAddCart?: () => void;
 }
+const ProductItemButtons: React.FC<IProductItemButtons> = ({
+  clickAddCart,
+}) => {
+  return (
+    <Stack direction={"column"} gap={0.7}>
+      <ShoppingCart onClick={clickAddCart} />
+      <Heart />
+      <Search />
+    </Stack>
+  );
+};
 
-export default ProductItemButtons
+export default ProductItemButtons;
