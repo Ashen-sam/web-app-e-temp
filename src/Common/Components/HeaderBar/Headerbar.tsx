@@ -1,8 +1,14 @@
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Badge, Stack, Typography, useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import React, { Fragment, ReactNode, useState } from "react";
-import { Heart, Search, ShoppingCart, User } from "lucide-react";
+import {
+  Heart,
+  Search,
+  ShoppingCart,
+  ShoppingCartIcon,
+  User,
+} from "lucide-react";
 import SideBar from "../Drawer/Drawer";
 import SearchBarDrawer from "../Drawer/SearchBarDrawer";
 import { MAIN_ROUTES } from "../../Constants/Routes/MainRoutes";
@@ -58,7 +64,11 @@ const HeaderBar: React.FC<IHeader> = ({ logoImg }) => {
     },
     {
       id: 3,
-      Icon: <ShoppingCart />,
+      Icon: (
+        <Badge badgeContent={10} color="secondary">
+          <ShoppingCart />
+        </Badge>
+      ),
       click: handleCartOpen,
     },
     {
